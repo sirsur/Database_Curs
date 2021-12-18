@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="rus">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>editProfile</title>
+</head>
+<body>
+    <% console.log(result[0][0]) %>
+    <% const back = `/profile?Login=${result[0][0].Login}` %>
+    <a href="<%=back %>">Вернуться назад</a>
+    <form method = "post">
+        <p>Логин: <input type="text" name="Login" value="<%= result[0][0].Login %>"></p>
+        <p>Пароль: <input type="password" name="password" value="1"></p>
+        <p>ФИО: <input type="text" name="FIO" value="<%= result[0][0].FIO %>"></p>
+        <p>Дата рождения: <input type="text" name="bday" value="<%= result[0][0].Birthday %>"></p>
+        <p>Номер полиса: <input type="text" name="policy" value="<%= result[0][0].Policy %>"></p>
+        <p>Номер телефона: <input type="tel" name="phone" value="<%= result[0][0].Phone %>"></p>
+        <button type = "submit">Редактировать данные</button>
+    </form>
+</body>
+</html>

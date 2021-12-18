@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <p>Логин: <%= result[0][0].Login %></p>
+    <p>ФИО: <%= result[0][0].FIO %></p>
+    <p>Дата рождения: <%= result[0][0].Birthday %></p>
+    <p>Номер полиса: <%= result[0][0].Policy %></p>
+    <p>Номер телефона: <%= result[0][0].Phone %></p>
+    <a href="/editProfile?Login=<%=result[0][0].Login %>">Редактировать профиль</a>
+    <a href="/usersOrders">Мои записи на прием</a>
+    <a href="/freeOrders">Свободные записи на прием</a>
+</body>
+</html>
