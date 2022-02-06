@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>allUsers</title>
+</head>
+<body>
+    <% const back_ = `/profile?Login=${back}` %>
+    <a href="<%=back_ %>">Вернуться назад</a>
+    <table>
+        <thead>
+            <tr>
+                <td>Логин</td>
+            </tr>
+        </thead>
+        <tbody>
+            <% result.forEach(columns => {
+                columns.forEach(function(column, index) {
+                    column = Object.values(column) %>
+                    <tr>
+                        <td><%= column[0] %></td>
+                        <td><a href="/profile?Login=<%= column[0] %>&admin=3">Просмотр профиля</a></td>
+                    </tr>
+                <% })
+            }) %>
+        </tbody>
+    </table>
+</body>
+</html>

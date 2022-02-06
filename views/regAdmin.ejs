@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="rus">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>regAdmin</title>
+</head>
+<body>
+    <% const back_ = `/profile?Login=admin` %>
+    <a href="<%=back_ %>">Вернуться назад</a>
+    <form action="/regAdmin" method="get">
+        <select name="userSelect">
+            <option disabled selected>Выберите пользователя</option>
+            <option value="1">Врач</option>
+            <option value="2">Пациент</option>
+            <input type="submit" placeholder="Выбрать">
+        </select>
+    </form>
+    <% if((status == 1) && (userStatus == 2)) { %>
+        <p>Данные введены неправильно, либо уже существуют</p>
+        <form action = "/regAdmin" method = "post">
+            <input type="text" name="Login" placeholder="Логин">
+            <input type="password" name="password" placeholder="Пароль">
+            <input type="text" name="FIO" placeholder="ФИО">
+            <input type="date" name="bday" placeholder="Дата рождения">
+            <input type="text" name="policy" placeholder="Номер полиса">
+            <input type="tel" name="phone" placeholder="Номер телефона">
+            <button type = "submit">Зарегистрировать</button>
+        </form>
+    <% } else if ((status == 2) && (userStatus == 2)) { %>
+        <form action="/regAdmin" method="post">
+            <input type="text" name="Login" placeholder="Логин">
+            <input type="password" name="password" placeholder="Пароль">
+            <input type="text" name="FIO" placeholder="ФИО">
+            <input type="date" name="bday" placeholder="Дата рождения">
+            <input type="text" name="policy" placeholder="Номер полиса">
+            <input type="tel" name="phone" placeholder="Номер телефона">
+            <button type = "submit">Зарегистрировать</button>
+        </form>
+    <% } else if((status == 1) && (userStatus == 1)) { %>
+        <p>Данные введены неправильно, либо уже существуют</p>
+        <form action="/regAdmin" method="post">
+            <input type="text" name="Login" placeholder="Логин">
+            <input type="password" name="password" placeholder="Пароль">
+            <input type="text" name="FIO" placeholder="ФИО">
+            <input type="date" name="bday" placeholder="Дата рождения">
+            <input type="text" name="speciality" placeholder="Специальность">
+            <input type="tel" name="inforamtion" placeholder="Дополнительная инфоррмация">
+            <button type = "submit">Зарегистрировать</button>
+        </form>
+    <% } else if ((status == 2) && (userStatus == 1)) { %>
+        <form action="/regAdmin" method="post">
+            <input type="text" name="Login" placeholder="Логин">
+            <input type="password" name="password" placeholder="Пароль">
+            <input type="text" name="FIO" placeholder="ФИО">
+            <input type="date" name="bday" placeholder="Дата рождения">
+            <input type="text" name="speciality" placeholder="Специальность">
+            <input type="tel" name="inforamtion" placeholder="Дополнительная инфоррмация">
+            <button type = "submit">Зарегистрировать</button>
+        </form>
+    <% } %>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="rus">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>allOrders</title>
+</head>
+<body>
+    <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
+    <a href="<%=back_ %>">Вернуться назад</a>
+    <div>
+        <% result.forEach(columns => {
+            columns.forEach(function(column, index) {
+                column = Object.values(column) %>
+                <p>Врач: <a href="/linkProfile?idDoctor=<%=column[7] %>&Login=<%=back %>&admin=<%=admin %>"><%= column[0] %></a></p>
+                <p>Специальность: <%= column[6] %></p>
+                <% if (column[1] == null) { %>
+                    <p>Пациент: отсутствует</p>
+                <% } else { %>
+                    <p>Пациент: <a href="/linkProfile?idPatient=<%=column[8] %>&Login=<%=back %>&admin=<%=admin %>"><%= column[1] %></a></p>
+                <% } %>
+                <p>Дата: <%= column[2] %></p>
+                <p>Время: <%= column[3] %></p>
+                <% if (column[4] == null) { %>
+                    <p>Примечание: отсутствует</p>
+                <% } else { %>
+                    <p>Примечание: <%= column[4] %></p>
+                <% }
+                if (column[5] == null) { %>
+                    <p>Заключение врача: отсутствует</p>
+                <% } else { %>
+                    <p>Заключение врача: <%= column[5] %></p>
+                <% } %>
+                <br>
+            <% }) 
+        }) %>
+    </div>
+</body>
+</html>

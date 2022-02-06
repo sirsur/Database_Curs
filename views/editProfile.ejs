@@ -7,17 +7,34 @@
     <title>editProfile</title>
 </head>
 <body>
-    <% console.log(result[0][0]) %>
-    <% const back = `/profile?Login=${result[0][0].Login}` %>
+    <% const back = `/profile?Login=${result[0][0].Login}&admin=${admin}` %>
     <a href="<%=back %>">Вернуться назад</a>
-    <form method = "post">
-        <p>Логин: <input type="text" name="Login" value="<%= result[0][0].Login %>"></p>
-        <p>Пароль: <input type="password" name="password" value="1"></p>
-        <p>ФИО: <input type="text" name="FIO" value="<%= result[0][0].FIO %>"></p>
-        <p>Дата рождения: <input type="text" name="bday" value="<%= result[0][0].Birthday %>"></p>
-        <p>Номер полиса: <input type="text" name="policy" value="<%= result[0][0].Policy %>"></p>
-        <p>Номер телефона: <input type="tel" name="phone" value="<%= result[0][0].Phone %>"></p>
-        <button type = "submit">Редактировать данные</button>
-    </form>
+    <% if (status == 1) { %>
+        <form method = "post">
+            <p>Логин: <input type="text" name="Login" value="<%= result[0][0].Login %>"></p>
+            <p>Пароль: <input type="password" name="password" value="1"></p>
+            <p>ФИО: <input type="text" name="FIO" value="<%= result[0][0].PatientFio %>"></p>
+            <p>Дата рождения(мм.дд.гггг): <input type="text" name="bday" value="<%= result[0][0].PatientBirthday %>"></p>
+            <p>Номер полиса: <input type="text" name="policy" value="<%= result[0][0].Policy %>"></p>
+            <p>Номер телефона: <input type="tel" name="phone" value="<%= result[0][0].Phone %>"></p>
+            <input type="hidden" value="<%= status %>">
+            <button type = "submit">Редактировать данные</button>
+        </form>
+    <% } else { %>
+        <form method = "post">
+            <p>Логин: <input type="text" name="Login" value="<%= result[0][0].Login %>"></p>
+            <p>Пароль: <input type="password" name="password" value="1"></p>
+            <p>ФИО: <input type="text" name="FIO" value="<%= result[0][0].DoctorFio %>"></p>
+            <p>Дата рождения(мм.дд.гггг): <input type="text" name="bday" value="<%= result[0][0].DoctorBirthday %>"></p>
+            <p>Специальность: <input type="text" name="speciality" value="<%= result[0][0].Speciality %>"></p>
+            <% if (result[0][0].Information == null) { %>
+                <p>Дополнительная информация: <input type="text" name="information" value="отсутствует"></p>
+            <% } else { %>
+                <p>Дополнительная информация: <input type="text" name="information" value="<%= result[0][0].Information %>"></p>
+            <% } %>
+            <input type="hidden" name="status" value="<%= status %>">
+            <button type = "submit">Редактировать данные</button>
+        </form>
+    <% } %>
 </body>
 </html>

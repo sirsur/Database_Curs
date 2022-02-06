@@ -7,6 +7,8 @@
     <title>Registration</title>
 </head>
 <body>
+    <% const back_ = `/` %>
+    <a href="<%=back_ %>">Вернуться назад</a>
     <% if(status == 1) { %>
         <p>Данные введены неправильно, либо уже существуют</p>
         <form action = "/reg" method = "post">
