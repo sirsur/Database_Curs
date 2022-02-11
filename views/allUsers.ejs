@@ -5,27 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>allUsers</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-    <% const back_ = `/profile?Login=${back}` %>
-    <a href="<%=back_ %>">Вернуться назад</a>
-    <table>
-        <thead>
-            <tr>
-                <td>Логин</td>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="window">
+        <% const back_ = `/profile?Login=admin` %>
+        <a class="a-back" href="<%=back_ %>"><i class="arrow-left"></i><p>Вернуться назад</p></a>
+        <form action="/allUsers" method="get">
+            <select name="userSelect">
+                <option disabled selected>Выберите пользователя</option>
+                <option value="1">Врач</option>
+                <option value="2">Пациент</option>
+                <input class="input-buttons" type="submit" value="Выбрать">
+            </select>
+        </form>
+        <br>
+        <div class="div-table">
             <% result.forEach(columns => {
                 columns.forEach(function(column, index) {
                     column = Object.values(column) %>
-                    <tr>
-                        <td><%= column[0] %></td>
-                        <td><a href="/profile?Login=<%= column[0] %>&admin=3">Просмотр профиля</a></td>
-                    </tr>
+                    <a class="a-table" href="/profile?Login=<%= column[0] %>&admin=3"><%= column[0] %></a>
                 <% })
             }) %>
-        </tbody>
-    </table>
+        </div>
+    </div>
 </body>
 </html>

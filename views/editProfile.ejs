@@ -5,36 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>editProfile</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-    <% const back = `/profile?Login=${result[0][0].Login}&admin=${admin}` %>
-    <a href="<%=back %>">Вернуться назад</a>
-    <% if (status == 1) { %>
-        <form method = "post">
-            <p>Логин: <input type="text" name="Login" value="<%= result[0][0].Login %>"></p>
-            <p>Пароль: <input type="password" name="password" value="1"></p>
-            <p>ФИО: <input type="text" name="FIO" value="<%= result[0][0].PatientFio %>"></p>
-            <p>Дата рождения(мм.дд.гггг): <input type="text" name="bday" value="<%= result[0][0].PatientBirthday %>"></p>
-            <p>Номер полиса: <input type="text" name="policy" value="<%= result[0][0].Policy %>"></p>
-            <p>Номер телефона: <input type="tel" name="phone" value="<%= result[0][0].Phone %>"></p>
-            <input type="hidden" value="<%= status %>">
-            <button type = "submit">Редактировать данные</button>
-        </form>
-    <% } else { %>
-        <form method = "post">
-            <p>Логин: <input type="text" name="Login" value="<%= result[0][0].Login %>"></p>
-            <p>Пароль: <input type="password" name="password" value="1"></p>
-            <p>ФИО: <input type="text" name="FIO" value="<%= result[0][0].DoctorFio %>"></p>
-            <p>Дата рождения(мм.дд.гггг): <input type="text" name="bday" value="<%= result[0][0].DoctorBirthday %>"></p>
-            <p>Специальность: <input type="text" name="speciality" value="<%= result[0][0].Speciality %>"></p>
-            <% if (result[0][0].Information == null) { %>
-                <p>Дополнительная информация: <input type="text" name="information" value="отсутствует"></p>
-            <% } else { %>
-                <p>Дополнительная информация: <input type="text" name="information" value="<%= result[0][0].Information %>"></p>
-            <% } %>
-            <input type="hidden" name="status" value="<%= status %>">
-            <button type = "submit">Редактировать данные</button>
-        </form>
-    <% } %>
+    <div class="window">
+        <% const back = `/profile?Login=${result[0][0].Login}&admin=${admin}` %>
+        <a class="a-back" href="<%=back %>"><i class="arrow-left"></i><p>Вернуться назад</p></a>
+        <% if (status == 1) { %>
+            <form class="edit-window" method = "post">
+                <span><p>Логин: </p><input type="text" name="Login" value="<%= result[0][0].Login %>"></span>
+                <span><p>Пароль: </p><input type="password" name="password" value="1"></span>
+                <span><p>ФИО: </p><input type="text" name="FIO" value="<%= result[0][0].PatientFio %>"></span>
+                <span><p>Дата рождения(мм.дд.гггг): </p><input type="text" name="bday" value="<%= result[0][0].PatientBirthday %>"></span>
+                <span><p>Номер полиса: </p><input type="text" name="policy" value="<%= result[0][0].Policy %>"></span>
+                <span><p>Номер телефона: </p><input type="tel" name="phone" value="<%= result[0][0].Phone %>"></span>
+                <input type="hidden" value="<%= status %>">
+                <button type = "submit">Редактировать данные</button>
+            </form>
+        <% } else { %>
+            <form class="edit-window" method = "post">
+                <span><p>Логин: </p><input type="text" name="Login" value="<%= result[0][0].Login %>"></span>
+                <span><p>Пароль: </p><input type="password" name="password" value="1"></span>
+                <span><p>ФИО: </p><input type="text" name="FIO" value="<%= result[0][0].DoctorFio %>"></span>
+                <span><p>Дата рождения(мм.дд.гггг): </p><input type="text" name="bday" value="<%= result[0][0].DoctorBirthday %>"></span>
+                <span><p>Специальность: </p><input type="text" name="speciality" value="<%= result[0][0].Speciality %>"></span>
+                <% if (result[0][0].Information == null) { %>
+                    <span><p>Дополнительная информация: </p><input type="text" name="information" value="отсутствует"></span>
+                <% } else { %>
+                    <span><p>Дополнительная информация: </p><input type="text" name="information" value="<%= result[0][0].Information %>"></span>
+                <% } %>
+                <input type="hidden" name="status" value="<%= status %>">
+                <button type = "submit">Редактировать данные</button>
+            </form>
+        <% } %>
+    </div>
 </body>
 </html>

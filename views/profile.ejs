@@ -5,55 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-    <% if (status == 1) { %>
-        <% if (admin == 3) { %>
-            <a href="/allUsers?Login=admin">Вернуться назад</a>
+    <div class="window">
+        <% if (status == 1) { %>
+            <% if (admin == 3) { %>
+                <a class="a-back" href="/allUsers?Login=admin"><i class="arrow-left"></i><p>Вернуться назад</p></a>
+            <% } %>
+            <div class="window-profile">
+                <p>Логин: <%= result[0][0].Login %></p>
+                <p>ФИО: <%= result[0][0].PatientFio %></p>
+                <p>Дата рождения(мм.дд.гггг): <%= result[0][0].PatientBirthday %></p>
+                <p>Номер полиса: <%= result[0][0].Policy %></p>
+                <p>Номер телефона: <%= result[0][0].Phone %></p>
+            </div>
+            <div class="div-table-profile">
+                <a class="a-table" href="/editProfile?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Редактировать профиль</a>
+                <a class="a-table" href="/usersOrders?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Мои записи<br>на прием</a>
+                <% if (admin != 3) { %>
+                    <a class="a-table" href="/freeOrders?Login=<%=result[0][0].Login %>">Свободные записи на прием</a>
+                <% } %>
+                <a class="a-table" href="/pastOrders?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Мои прошедшие записи</a>
+                <% if (admin != 3) { %>
+                    <a class="a-table" href="/">Выйти из профиля</a>
+                <% } %>
+            </div>
+        <% } else if (status == 2) { %>
+            <% if (admin == 3) { %>
+                <a class="a-back" href="/allUsers?Login=admin"><i class="arrow-left"></i><p>Вернуться назад</p></a>
+            <% } %>
+            <div class="window-profile">
+                <p>Логин: <%= result[0][0].Login %></p>
+                <p>ФИО: <%= result[0][0].DoctorFio %></p>
+                <p>Дата рождения(мм.дд.гггг): <%= result[0][0].DoctorBirthday %></p>
+                <p>Специальность: <%= result[0][0].Speciality %></p>
+                <% if (result[0][0].Information == null) { %>
+                    <p>Дополнительная информация: отсутствует</p>
+                <% } else { %>
+                    <p>Дополнительная информация: <%= result[0][0].Information %></p>
+                <% } %>
+            </div>
+            <div class="div-table-profile">
+                <a class="a-table" href="/editProfile?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Редактировать профиль</a>
+                <a class="a-table" href="/usersOrders?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Мои записи на прием</a>
+                <% if (admin != 3) { %>
+                    <a class="a-table" href="/freeOrders?Login=<%=result[0][0].Login %>">Свободные записи на прием</a>
+                <% } %>
+                <a class="a-table" href="/pastOrders?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Мои прошедшие записи</a>
+                <% if (admin != 3) { %>
+                    <a class="a-table" href="/">Выйти из профиля</a>
+                <% } %>
+            </div>
+        <% } else if (status == 3) { %>
+            <a class="a-buttons" href="/allUsers?Login=<%=result[0][0].Login %>">Список всех пользователей</a><br>
+            <a class="a-buttons" href="/regAdmin?Login=<%=result[0][0].Login%>&admin=3">Регистрация нового пользователя</a><br>
+            <a class="a-buttons" href="/freeOrders?Login=<%=result[0][0].Login%>&admin=3">Список свободных записей на прием</a><br>
+            <a class="a-buttons" href="/newOrders?Login=<%=result[0][0].Login%>&admin=3">Создание новых записей на прием</a><br>
+            <a class="a-buttons" href="/allOrders?Login=<%=result[0][0].Login%>&admin=3">Все записи на прием</a><br>
+            <a class="a-buttons" href="/">Выйти из профиля</a>
         <% } %>
-        <p>Логин: <%= result[0][0].Login %></p>
-        <p>ФИО: <%= result[0][0].PatientFio %></p>
-        <p>Дата рождения(мм.дд.гггг): <%= result[0][0].PatientBirthday %></p>
-        <p>Номер полиса: <%= result[0][0].Policy %></p>
-        <p>Номер телефона: <%= result[0][0].Phone %></p>
-        <a href="/editProfile?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Редактировать профиль</a>
-        <a href="/usersOrders?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Мои записи на прием</a>
-        <% if (admin != 3) { %>
-            <a href="/freeOrders?Login=<%=result[0][0].Login %>">Свободные записи на прием</a>
-        <% } %>
-        <a href="/pastOrders?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Мои прошедшие записи</a>
-        <% if (admin != 3) { %>
-            <a href="/">Выйти из профиля</a>
-        <% } %>
-    <% } else if (status == 2) { %>
-        <% if (admin == 3) { %>
-            <a href="/allUsers?Login=admin">Вернуться назад</a>
-        <% } %>
-        <p>Логин: <%= result[0][0].Login %></p>
-        <p>ФИО: <%= result[0][0].DoctorFio %></p>
-        <p>Дата рождения(мм.дд.гггг): <%= result[0][0].DoctorBirthday %></p>
-        <p>Специальность: <%= result[0][0].Speciality %></p>
-        <% if (result[0][0].Information == null) { %>
-            <p>Дополнительная информация: отсутствует</p>
-        <% } else { %>
-            <p>Дополнительная информация: <%= result[0][0].Information %></p>
-        <% } %>
-        <a href="/editProfile?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Редактировать профиль</a>
-        <a href="/usersOrders?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Мои записи на прием</a>
-        <% if (admin != 3) { %>
-            <a href="/freeOrders?Login=<%=result[0][0].Login %>">Свободные записи на прием</a>
-        <% } %>
-        <a href="/pastOrders?Login=<%=result[0][0].Login%>&admin=<%=admin %>">Мои прошедшие записи</a>
-        <% if (admin != 3) { %>
-            <a href="/">Выйти из профиля</a>
-        <% } %>
-    <% } else if (status == 3) { %>
-        <a href="/allUsers?Login=<%=result[0][0].Login %>">Список всех пользователей</a>
-        <a href="/regAdmin?Login=<%=result[0][0].Login%>&admin=3">Регистрация нового пользователя</a>
-        <a href="/freeOrders?Login=<%=result[0][0].Login%>&admin=3">Список свободных записей на прием</a>
-        <a href="/newOrders?Login=<%=result[0][0].Login%>&admin=3">Создание новых записей на прием</a>
-        <a href="/allOrders?Login=<%=result[0][0].Login%>&admin=3">Все записи на прием</a>
-        <a href="/">Выйти из профиля</a>
-    <% } %>
+    </div>
 </body>
 </html>

@@ -5,16 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>newOrders</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-    <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
-    <a href="<%=back_ %>">Вернуться назад</a>
-    <form method="post">
-        <p>Логин врача: <input type="text" name="Login" required></p>
-        <p>Дата(мм/дд/гггг): <input type="text" name="date" required></p>
-        <p>Время(чч/мм/сс): <input type="text" name="time" required></p>
-        <p>Примечание: <input type="text" name="note" value="<%= null %>"></p>
-        <button type="submit">Добавить новую запись на прием</button>
-    </form>
+    <div class="window">
+        <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
+        <a class="a-back" href="<%=back_ %>"><i class="arrow-left"></i><p>Вернуться назад</p></a>
+        <form class="edit-window" method="post">
+            <span><p>Логин врача: </p><input type="text" name="Login" required></span>
+            <span><p>Дата(мм/дд/гггг): </p><input type="text" name="date" required></span>
+            <span><p>Время(чч/мм/сс): </p><input type="text" name="time" required></span>
+            <span><p>Примечание: </p><input type="text" name="note" value="<%=null %>"></span>
+            <button type="submit">Добавить новую запись на прием</button>
+        </form>
+    </div> 
 </body>
 </html>

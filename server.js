@@ -4,8 +4,12 @@ const port = 3000;
 const db = require('./js/connect');
 const parser = require('body-parser');
 const hash = require("hash.js");
+const { resourceLimits } = require('worker_threads');
+const path = require('path');
 
-const app = express();    
+const app = express();
+
+app.use(express.static(path.join(__dirname, 'views')));
 
 app.use(parser.urlencoded({
     parameterLimit: 10000000,
@@ -67,13 +71,12 @@ app.post('/reg', function(req, res) {
         COMMIT TRANSACTION
         END TRY
         BEGIN CATCH
-        ROLLBACK TRANSACTION;
+        PRINT 'The error message is: ' + error_message()
         END CATCH
     `]
     const connect = db.request(state);
     connect.then(result => {
-        console.log(result);
-        if (result[0] != undefined) {
+        if (result[0] == undefined) {
             res.redirect(`../profile?Login=${req.body.Login}`);
         } else {
             res.redirect('../reg?status=1');
@@ -364,15 +367,28 @@ app.get('/linkProfile', (req, res) => {
 })
 
 app.get('/allUsers', (req, res) => {
-    const state = [`
+    var state = [`
         SELECT Login FROM Users
         LEFT JOIN Doctors ON Doctors.idUser = Users.idUser
         LEFT JOIN Patients ON Patients.idUser = Users.idUser
         WHERE idDoctor IS NOT NULL OR idPatient IS NOT NULL
     `]
+    if (req.query.userSelect == 1) {
+        state = [`
+            SELECT Login FROM Users
+            JOIN Doctors ON Doctors.idUser = Users.idUser
+            WHERE idDoctor IS NOT NULL
+        `]
+    } else if (req.query.userSelect == 2) {
+        state = [`
+            SELECT Login FROM Users
+            JOIN Patients ON Patients.idUser = Users.idUser
+            WHERE idPatient IS NOT NULL
+        `]
+    }
     const connect = db.request(state);
     connect.then(result => {
-        res.render(__dirname + '/views/allUsers', { result: result, back: req.query.Login })
+        res.render(__dirname + '/views/allUsers', { result: result })
     })
 })
 
@@ -407,7 +423,8 @@ app.post('/newOrders', (req, res) => {
         const state_ = [`
             DECLARE @id_doctor INT,
             @date date,
-            @time time
+            @time time,
+            @note VARCHAR(300)
             SET @id_doctor = (
                 SELECT idDoctor FROM Doctors
                 JOIN Users ON Users.idUser = Doctors.idUser
@@ -415,10 +432,13 @@ app.post('/newOrders', (req, res) => {
             )
             SET @date = CAST('${req.body.date}' AS DATETIME)
             SET @time = CAST('${req.body.time}' AS TIME)
-            EXEC newTimetable @id_doctor, @date, @time, '${req.body.note}'
+            SET @note = '${req.body.note}'
+            IF (@note = '') SET @note = NULL
+            EXEC newTimetable @id_doctor, @date, @time, @note
         `]
         const connect_ = db.request(state_);
         connect_.then(result_ => {
+            console.log(req.body);
             res.redirect(`../freeOrders?Login=${req.query.Login}&admin=${req.query.admin}`);
         })
     })
@@ -434,7 +454,7 @@ app.get('/regAdmin', (req, res) => {
 
 app.post('/regAdmin', (req, res) => {
     req.body.password = hash.sha256().update(req.body.password).digest('hex');
-    if (req.query.userStatus == 2) {    
+    if (req.body.userStatus == 2) {    
         var state = [`
             DECLARE @testIdUser INT
             BEGIN TRY
@@ -447,10 +467,10 @@ app.post('/regAdmin', (req, res) => {
             COMMIT TRANSACTION
             END TRY
             BEGIN CATCH
-            ROLLBACK TRANSACTION;
+            PRINT 'The error message is: ' + error_message()
             END CATCH
         `]
-    } else {
+    } else if (req.body.userStatus == 1) {
         state = [`
             DECLARE @testIdUser INT
             BEGIN TRY
@@ -463,17 +483,17 @@ app.post('/regAdmin', (req, res) => {
             COMMIT TRANSACTION
             END TRY
             BEGIN CATCH
-            ROLLBACK TRANSACTION;
+            PRINT 'The error message is: ' + error_message()
             END CATCH
         `]
     }
     const connect = db.request(state);
     connect.then(result => {
-        console.log(result);
-        if (result[0] != undefined) {
+        if (result[0] == undefined) {
+            console.log(result);
             res.redirect(`../profile?Login=admin`);
         } else {
-            res.redirect('../regAdmin?status=1');
+            res.redirect(`../regAdmin?status=1&userSelect=${req.body.userStatus}`);
         }
     })
 })

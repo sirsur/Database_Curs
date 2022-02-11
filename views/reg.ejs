@@ -5,31 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-    <% const back_ = `/` %>
-    <a href="<%=back_ %>">Вернуться назад</a>
-    <% if(status == 1) { %>
-        <p>Данные введены неправильно, либо уже существуют</p>
-        <form action = "/reg" method = "post">
-            <input type="text" name="Login">
-            <input type="password" name="password">
-            <input type="text" name="FIO">
-            <input type="date" name="bday">
-            <input type="text" name="policy">
-            <input type="tel" name="phone">
-            <button type = "submit">Зарегистрироваться</button>
-        </form>
-    <% } else { %>
-        <form action="/reg" method="post">
-            <input type="text" name="Login">
-            <input type="password" name="password">
-            <input type="text" name="fio">
-            <input type="date" name="bday">
-            <input type="text" name="policy">
-            <input type="tel" name="phone">
-            <button type = "submit">Зарегистрироваться</button>
-        </form>
-    <% } %>
+    <div class="window">
+        <% const back_ = `/` %>
+        <a class="a-back" href="<%=back_ %>"><i class="arrow-left"></i><p>Вернуться назад</p></a>
+        <% if(status == 1) { %>
+            <p>Данные введены неправильно, либо уже существуют</p>
+            <form class="window-reg" action = "/reg" method = "post">
+                <input type="text" name="Login" placeholder="Логин">
+                <input type="password" name="password" placeholder="Пароль">
+                <input type="text" name="FIO" placeholder="ФИО">
+                <input type="text" placeholder="Дата рождения"
+                    onfocus="(this.type='date')">
+                <input type="text" name="policy" placeholder="Номер полиса">
+                <input type="tel" name="phone" placeholder="Номер телефона">
+                <button type = "submit">Зарегистрироваться</button>
+            </form>
+        <% } else { %>
+            <form class="window-reg" action="/reg" method="post">
+                <input type="text" name="Login" placeholder="Логин">
+                <input type="password" name="password" placeholder="Пароль">
+                <input type="text" name="FIO" placeholder="ФИО">
+                <input type="text" placeholder="Дата рождения"
+                    onfocus="(this.type='date')">
+                <input type="text" name="policy" placeholder="Номер полиса">
+                <input type="tel" name="phone" placeholder="Номер телефона">
+                <button type = "submit">Зарегистрироваться</button>
+            </form>
+        <% } %>
+    </div>
 </body>
 </html>
