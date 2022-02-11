@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-    <div class="window">
+    <div class="window-orders">
         <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
         <a class="a-back" href="<%=back_ %>"><i class="arrow-left"></i><p>Вернуться назад</p></a>
-        <div>
-            <% result.forEach(columns => {
-                columns.forEach(function(column, index) {
-                    column = Object.values(column) 
-                    if (status == 2) { %>
+        <% result.forEach(columns => {
+            columns.forEach(function(column, index) {
+                column = Object.values(column) %>
+                <div class="orders">
+                    <% if (status == 2) { %>
                         <p>Врач: <%= column[0] %></p>
                     <% } else { %>
                         <p>Врач: <a href="/linkProfile?idDoctor=<%=column[7] %>&Login=<%=back %>&admin=<%=admin %>"><%= column[0] %></a></p>
@@ -38,9 +38,9 @@
                         <button type="submit">Отменить запись на прием</button>
                     </form>
                     <br>
-                <% })
-            }) %>
-        </div>
+                </div>
+            <% })
+        }) %>
     </div>
 </body>
 </html>

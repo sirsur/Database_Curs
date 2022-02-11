@@ -5,36 +5,41 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>freeOrders</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-    <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
-    <a href="<%=back_ %>">Вернуться назад</a>
-    <% if (status == 3) { %>
-        <p>Не удалось записать на прием пациента!</p>
-    <% } %>
-    <% result.forEach(columns => {
-        columns.forEach(function(column, index) {
-            column = Object.values(column) %>
-            <p>Врач: <a href="/linkProfile?idDoctor=<%=column[6]%>&Login=<%=back %>&admin=<%=admin %>"><%= column[0] %></a></p>
-            <p>Специальность: <%= column[5] %></p>
-            <p>Дата: <%= column[1] %></p>
-            <p>Время: <%= column[2] %></p>
-            <% if (column[3] == null) { %>
-                <p>Примечание: отсутствует</p>
-            <% } else { %>
-                <p>Примечание: <%= column[3] %></p>
-            <% } %>
-            <form method="post">
-                <input type="hidden" name="Login" value="<%=back%>">
-                <input type="hidden" name="id" value="<%=column[4]%>">
-                <input type="hidden" name="status" value="<%= status %>">
-                <% if (status == 2 || status == 3) { %>
-                    <input type="Text" name="policy" value="Номер полиса пациента">
-                <% } %>
-                <button type="submit">Записаться на прием</button>
-            </form>
-            <br>
-        <% })
-    }) %>
+    <div class="window-orders">
+        <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
+        <a class="a-back" href="<%=back_ %>"><i class="arrow-left"></i><p>Вернуться назад</p></a>
+        <% if (status == 3) { %>
+            <p>Не удалось записать на прием пациента!</p>
+        <% } %>
+        <% result.forEach(columns => {
+            columns.forEach(function(column, index) {
+                column = Object.values(column) %>
+                <div class="orders">
+                    <p>Врач: <a href="/linkProfile?idDoctor=<%=column[6]%>&Login=<%=back %>&admin=<%=admin %>"><%= column[0] %></a></p>
+                    <p>Специальность: <%= column[5] %></p>
+                    <p>Дата: <%= column[1] %></p>
+                    <p>Время: <%= column[2] %></p>
+                    <% if (column[3] == null) { %>
+                        <p>Примечание: отсутствует</p>
+                    <% } else { %>
+                        <p>Примечание: <%= column[3] %></p>
+                    <% } %>
+                    <form method="post">
+                        <input type="hidden" name="Login" value="<%=back%>">
+                        <input type="hidden" name="id" value="<%=column[4]%>">
+                        <input type="hidden" name="status" value="<%= status %>">
+                        <% if (status == 2 || status == 3) { %>
+                            <input type="text" name="policy" value="Введите номер полиса пациента..">
+                        <% } %>
+                        <button type="submit">Записаться на прием</button>
+                    </form>
+                    <br>
+                </div>
+            <% })
+        }) %>
+    </div>
 </body>
 </html>

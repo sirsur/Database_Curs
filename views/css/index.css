@@ -165,3 +165,58 @@ form p {
     width: 100%;
     margin-left: 5px;
 }
+
+.orders {
+    border-radius: 10px;
+    border: 3px solid #BBD4FA;
+    background-color: #6D9EAC;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: underline;
+}
+
+.orders p {
+    margin: 10px;
+}
+
+.orders form {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+}
+
+.orders button {
+    border-radius: 10px;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    font-size: 15px;
+    align-self: center;
+}
+
+.orders input {
+    border-radius: 10px;
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    font-size: 15px;
+    color: dimgray;
+    text-align: left;
+    text-decoration: underline;
+    margin-bottom: 5px;
+}
+
+.orders a {
+    font-weight: bold;
+    color: #BBD4FA;
+}
+
+.window-orders {
+    max-height: 60%;
+    padding: 35px 55px;
+    border-radius: 10px;
+    border: 3px solid #6D9EAC;
+    background-color: #BBD4FA;
+    overflow: scroll;
+}

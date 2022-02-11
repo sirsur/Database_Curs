@@ -5,50 +5,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pastOrders</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-    <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
-    <a href="<%=back_ %>">Вернуться назад</a>
-    <div>
+    <div class="window-orders">
+        <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
+        <a class="a-back" href="<%=back_ %>"><i class="arrow-left"></i><p>Вернуться назад</p></a>
         <% result.forEach(columns => {
             columns.forEach(function(column, index) {
                 column = Object.values(column) %>
-                <p>Врач: <a href="/linkProfile?idDoctor=<%=column[7] %>&Login=<%=back %>&admin=<%=admin %>"><%= column[0] %></a></p>
-                <p>Специальность: <%= column[6] %></p>
-                <% if(status == 1) { %>
-                    <p>Пациент: <%= column[1] %></p>
-                <% } else { %>
-                    <p>Пациент: <a href="/linkProfile?idPatient=<%=column[8] %>&Login=<%=back %>&admin=<%=admin %>"><%= column[1] %></a></p>
-                <% } %>
-                <p>Дата: <%= column[2] %></p>
-                <p>Время: <%= column[3] %></p>
-                <% if (column[4] == null) { %>
-                    <p>Примечание: отсутствует</p>
-                <% } else { %>
-                    <p>Примечание: <%= column[4] %></p>
-                <% } %>
-                <% if(status == 1) { 
-                    if (column[5] == null) { %>
-                        <p>Заключение врача: отсутствует</p>
+                <div class="orders">
+                    <p>Врач: <a href="/linkProfile?idDoctor=<%=column[7] %>&Login=<%=back %>&admin=<%=admin %>"><%= column[0] %></a></p>
+                    <p>Специальность: <%= column[6] %></p>
+                    <% if(status == 1) { %>
+                        <p>Пациент: <%= column[1] %></p>
                     <% } else { %>
-                        <p>Заключение врача: <%= column[5] %></p>
-                    <% }
-                } else if (admin != 3) { 
-                    if (column[5] == null) { %>
-                        <form method="post">
-                            <input type="hidden" name="id" value="<%= column[9] %>">
-                            <p>Заключение врача: <input type="text" name="report" value="отсутствует"></p>
-                            <button type="submit">Изменить заключение</button>
-                        </form>
+                        <p>Пациент: <a href="/linkProfile?idPatient=<%=column[8] %>&Login=<%=back %>&admin=<%=admin %>"><%= column[1] %></a></p>
+                    <% } %>
+                    <p>Дата: <%= column[2] %></p>
+                    <p>Время: <%= column[3] %></p>
+                    <% if (column[4] == null) { %>
+                        <p>Примечание: отсутствует</p>
                     <% } else { %>
-                        <form method="post">
-                            <input type="hidden" name="id" value="<%= column[9] %>">
-                            <p>Заключение врача: <input type="text" name="report" value="<%= column[5] %>"></p>
-                            <button type="submit">Изменить заключение</button>
-                        </form>
-                    <% } 
-                } %>
-                <br>
+                        <p>Примечание: <%= column[4] %></p>
+                    <% } %>
+                    <% if(status == 1) { 
+                        if (column[5] == null) { %>
+                            <p>Заключение врача: отсутствует</p>
+                        <% } else { %>
+                            <p>Заключение врача: <%= column[5] %></p>
+                        <% }
+                    } else if (admin != 3) { 
+                        if (column[5] == null) { %>
+                            <form method="post">
+                                <input type="hidden" name="id" value="<%= column[9] %>">
+                                <p>Заключение врача: <input type="text" name="report" value="отсутствует"></p>
+                                <button type="submit">Изменить заключение</button>
+                            </form>
+                        <% } else { %>
+                            <form method="post">
+                                <input type="hidden" name="id" value="<%= column[9] %>">
+                                <p>Заключение врача: <input type="text" name="report" value="<%= column[5] %>"></p>
+                                <button type="submit">Изменить заключение</button>
+                            </form>
+                        <% } 
+                    } %>
+                    <br>
+                </div>
             <% })
         }) %>
     </div>

@@ -5,25 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>linkProfile</title>
+    <link rel="stylesheet" href="css/index.css" type="text/css">
 </head>
 <body>
-    <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
-    <a href="<%=back_ %>">Вернуться в профиль</a>
-    <p>Логин: <%= result[0][0].Login %></p>
-    <p>ФИО: <%= result[0][0].FIO %></p>
-    <p>Дата рождения: <%= result[0][0].Birthday %></p>
-    <% if(result[0][0].Speciality != null) { %>
-        <p>Специальность: <%= result[0][0].Speciality %></p>
-    <% } else if (result[0][0].Policy) { %>
-        <p>Номер полиса: <%= result[0][0].Policy %></p>
-    <% } %>
-    <% if (result[0][0].Information == null && result[0][0].Phone == null) { %>
-        <p>Дополнительная информация: отсутствует</p>
-    <% } else if (result[0][0].Information != null && result[0][0].Phone == null) { %>
-        <p>Дополнительная информация: <%= result[0][0].Information %></p>
-    <% } %>
-    <% if (result[0][0].Phone != null) { %>
-        <p>Номер телефона: <%= result[0][0].Phone %></p>
-    <% } %>
+    <div class="window">
+        <% const back_ = `/profile?Login=${back}&admin=${admin}` %>
+        <a class="a-back" href="<%=back_ %>"><i class="arrow-left"></i><p>Вернуться назад</p></a>
+        <div class="window-profile">
+            <p>Логин: <%= result[0][0].Login %></p>
+            <p>ФИО: <%= result[0][0].FIO %></p>
+            <p>Дата рождения: <%= result[0][0].Birthday %></p>
+            <% if(result[0][0].Speciality != null) { %>
+                <p>Специальность: <%= result[0][0].Speciality %></p>
+            <% } else if (result[0][0].Policy) { %>
+                <p>Номер полиса: <%= result[0][0].Policy %></p>
+            <% } %>
+            <% if (result[0][0].Information == null && result[0][0].Phone == null) { %>
+                <p>Дополнительная информация: отсутствует</p>
+            <% } else if (result[0][0].Information != null && result[0][0].Phone == null) { %>
+                <p>Дополнительная информация: <%= result[0][0].Information %></p>
+            <% } %>
+            <% if (result[0][0].Phone != null) { %>
+                <p>Номер телефона: <%= result[0][0].Phone %></p>
+            <% } %>
+        </div>
+    </div>
 </body>
 </html>
